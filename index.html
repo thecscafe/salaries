@@ -10,12 +10,11 @@
     <meta name="keywords" content="remote salary benchmarks, OTE, sales salary, marketing salary, customer success salary, product salary, remote compensation data, career hub, remote jobs">
     <meta name="author" content="Sales Career Hub">
 
-    <!-- Open Graph Tags (for LinkedIn, Facebook, etc.) -->
+    <!-- Open Graph Tags -->
     <meta property="og:title" content="The Remote Career Hub: Interactive Salary Benchmarks (Sales, Marketing, CS, Product)">
     <meta property="og:description" content="Get accurate 2025 OTE, base salary, and compensation breakdowns for remote roles in Sales, Marketing, Customer Success, and Product. Start your negotiation with data.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://thecscafe.github.io/salaries/">
-    <!-- Placeholder for an image that represents the entire hub (e.g., a collage of the 4 job types) -->
     <meta property="og:image" content="https://placehold.co/1200x630/1E56A0/ffffff?text=Salary+Hub+2025">
 
     <!-- Twitter Card Tags -->
@@ -24,6 +23,8 @@
     <meta name="twitter:creator" content="@HakanOzturk">
     
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js and Inter font are now loaded on the main page -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -33,6 +34,10 @@
             color: #1A202C;
         }
         /* Style for the actual link (Sales) */
+        .card-link {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
         .card-link:hover .card-icon {
             transform: scale(1.1);
         }
@@ -44,7 +49,42 @@
         }
         .card-placeholder:hover {
             opacity: 0.8;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); /* Prevents hover shadow boost */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Styles needed for the dynamically loaded Chart.js containers */
+        .chart-container-bar {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 450px;
+            max-height: 500px;
+        }
+        .chart-container-donut {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 300px;
+        }
+        @media (min-width: 768px) {
+            .chart-container-bar {
+                height: 500px;
+                max-height: 600px;
+            }
+        }
+        /* Custom animation for the CTA button */
+        @keyframes pulse-shadow {
+            0% { box-shadow: 0 0 0 0 rgba(62, 146, 204, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(62, 146, 204, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(62, 146, 204, 0); }
+        }
+        .cta-button-pulse {
+            animation: pulse-shadow 1.5s infinite;
         }
     </style>
 </head>
@@ -63,8 +103,9 @@
         <!-- DASHBOARD NAVIGATION GRID -->
         <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             
-            <!-- Sales Dashboard Card (Existing, ACTIVE File) -->
-            <a href="https://thecscafe.github.io/salaries/Interactive-Remote-Sales-Salary-Dashboard.html" target="_blank" class="card-link bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border-b-4 border-[#1E56A0] flex items-start space-x-4">
+            <!-- Sales Dashboard Card (Now calling a JS function) -->
+            <!-- The href is now '#' and onclick loads the content dynamically -->
+            <a href="#" id="sales-card" data-dashboard-id="sales" class="card-link bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border-b-4 border-[#1E56A0] flex items-start space-x-4">
                 <span class="card-icon text-4xl text-[#1E56A0] transform transition-transform duration-300">📈</span>
                 <div>
                     <h2 class="text-2xl font-bold text-[#1E56A0] mb-2">Remote Sales Salary Snapshot (2025) - LIVE!</h2>
@@ -72,7 +113,7 @@
                 </div>
             </a>
             
-            <!-- Marketing Dashboard Card (INACTIVE Placeholder) -->
+            <!-- Marketing Dashboard Card (Placeholder - No change) -->
             <div class="card-placeholder bg-white p-8 rounded-xl shadow-lg border-b-4 border-gray-400 flex items-start space-x-4">
                 <span class="card-icon text-4xl text-gray-500">📣</span>
                 <div>
@@ -82,7 +123,7 @@
                 </div>
             </div>
             
-            <!-- Customer Success Dashboard Card (INACTIVE Placeholder) -->
+            <!-- Customer Success Dashboard Card (Placeholder - No change) -->
             <div class="card-placeholder bg-white p-8 rounded-xl shadow-lg border-b-4 border-gray-400 flex items-start space-x-4">
                 <span class="card-icon text-4xl text-gray-500">🤝</span>
                 <div>
@@ -92,7 +133,7 @@
                 </div>
             </div>
             
-            <!-- Product Management Dashboard Card (INACTIVE Placeholder) -->
+            <!-- Product Management Dashboard Card (Placeholder - No change) -->
             <div class="card-placeholder bg-white p-8 rounded-xl shadow-lg border-b-4 border-gray-400 flex items-start space-x-4">
                 <span class="card-icon text-4xl text-gray-500">🧠</span>
                 <div>
@@ -103,8 +144,13 @@
             </div>
         </section>
 
-        <!-- The Newsletter CTA section was removed here -->
-
+        <!-- Dynamic Content Area -->
+        <main id="dynamic-content" class="bg-white rounded-xl shadow-2xl min-h-[300px] transition-all duration-500 p-6 md:p-10">
+            <div class="text-center py-16 text-gray-500 text-xl font-medium">
+                Click on the **Remote Sales Salary Snapshot** card above to view the dashboard instantly!
+            </div>
+        </main>
+        
         <footer class="text-center mt-16 py-6 border-t border-gray-300">
             <p class="text-gray-600">
                 A project by 
@@ -116,5 +162,273 @@
         </footer>
 
     </div>
+
+    <script>
+        // --- Sales Dashboard Content and Logic (Extracted from original HTML) ---
+
+        // 1. Raw HTML content of the dashboard (excluding redundant header/footer)
+        const salesDashboardHTML = `
+            <div class="text-center mb-10 md:mb-16">
+                <!-- H2 for the dynamic content block -->
+                <h2 class="text-4xl md:text-5xl font-bold text-[#1E56A0] mb-3">2025 Remote Sales Salary Snapshot: OTE Breakdown & Negotiation Guide</h2>
+                <p class="text-lg md:text-xl text-gray-600">Discover your true market worth with our data-driven guide to remote sales compensation.</p>
+            </div>
+
+            <!-- Section 1: Key Metrics -->
+            <section class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-10 md:mb-16">
+                <div class="bg-white p-6 rounded-xl shadow-xl border-l-4 border-[#1E56A0]">
+                    <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">Highest Potential On-Target Earnings (OTE)</p>
+                    <p class="text-5xl md:text-6xl font-bold text-[#0A2463] my-2">$340,000</p>
+                    <p class="text-lg text-gray-700">Role: <span class="font-semibold">Enterprise Account Executive (AE)</span></p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-xl border-l-4 border-[#3E92CC]">
+                    <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">Average Remote Sales OTE (Across Key Roles)</p>
+                    <p class="text-5xl md:text-6xl font-bold text-[#0A2463] my-2">$166,428</p>
+                    <p class="text-lg text-gray-700">Average OTE across SDR, BDR, AE, and Sales Manager positions.</p>
+                </div>
+            </section>
+
+            <!-- Section 2: OTE Composition Chart -->
+            <section class="bg-white rounded-xl shadow-2xl p-6 md:p-10 mb-10 md:mb-16">
+                <h3 class="text-3xl font-bold text-[#0A2463] mb-3 text-center">In-Depth Sales OTE Composition: Base Salary vs. Variable Commission</h3>
+                <p class="text-center text-gray-600 max-w-3xl mx-auto mb-8">
+                    This chart visually breaks down the average <strong>On-Target Earnings (OTE)</strong> for each sales role, clearly differentiating the stable <strong>Base Salary</strong> from the performance-based <strong>Variable Commission</strong>. Use this data to benchmark your current compensation.
+                </p>
+                <div class="chart-container-bar">
+                    <canvas id="compositionChart"></canvas>
+                </div>
+            </section>
+
+            <!-- Section 3: Key Insight - The 50/50 Split -->
+            <section class="bg-white rounded-xl shadow-2xl p-6 md:p-10 mb-10 md:mb-16">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-3xl font-bold text-[#0A2463] mb-4">The Standard: Understanding the Remote AE 50/50 Salary Split</h3>
+                        <p class="text-gray-700 text-lg mb-4">
+                            For key Account Executive roles (SMB, Mid-Market, and Enterprise), the <strong class="text-[#1E56A0]">50/50 OTE split</strong> is the established industry standard for <strong class="font-bold">remote sales compensation</strong>. This means your <strong class="font-bold">Base Salary</strong> and your at-quota <strong class="font-bold">Variable Commission</strong> are designed to be equal.
+                        </p>
+                        <p class="text-gray-700 text-lg">
+                            This model ensures security with the <strong class="font-bold">Base</strong> while providing massive upside through the <strong class="font-bold">Variable</strong> component. Knowing this split is crucial before you start your next salary negotiation.
+                        </p>
+                    </div>
+                    <div class="chart-container-donut">
+                        <canvas id="donutChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: Negotiation Playbook -->
+            <section class="mb-10 md:mb-16">
+                <h3 class="text-3xl font-bold text-[#0A2463] mb-8 text-center">Exclusive Remote Sales Salary Negotiation Playbook</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                        
+                    <div class="bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 duration-300">
+                        <h4 class="text-2xl font-semibold text-[#1E56A0] mb-3">1. Base Salary Focus: Stability & Risk</h4>
+                        <p class="text-gray-700">
+                            Always aim to protect your <strong class="font-bold">Base Salary</strong>. A competitive base ensures financial security. If the proposed variable pay is disproportionately high, it can signal an extremely aggressive or unattainable quota.
+                        </p>
+                    </div>
+                        
+                    <div class="bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 duration-300">
+                        <h4 class="text-2xl font-semibold text-[#1E56A0] mb-3">2. Variable Pay: Quota & Accelerators</h4>
+                        <p class="text-gray-700">
+                            The true value of the <strong class="font-bold">Variable component</strong> lies in the <strong class="font-bold">quota reality</strong>. Investigate the average attainment rates and accelerator tiers. An "inflated" OTE is worthless if the quota is unrealistic.
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 duration-300">
+                        <h4 class="text-2xl font-semibold text-[#1E56A0] mb-3">3. Sales Manager OTE Nuances</h4>
+                        <p class="text-gray-700">
+                            Sales Manager OTE is typically weighted more towards the <strong class="font-bold">Base Salary</strong> (often 60/40 or 70/30). Their variable pay is based on team performance, requiring less risk on individual performance.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Newsletter CTA -->
+            <section class="bg-[#1E56A0] text-white p-8 md:p-12 rounded-xl shadow-2xl text-center mb-10 md:mb-16">
+                <h3 class="text-3xl md:text-4xl font-bold mb-3">Maximize Your Next Offer: Join the Newsletter!</h3>
+                <p class="text-xl mb-6 max-w-4xl mx-auto">
+                    Don't leave money on the table. Get the complete 50-page deep-dive report, real-time salary updates, and proven negotiation scripts delivered weekly.
+                </p>
+                <!-- Prominent call to action button with a subtle pulse animation for improved CTR -->
+                <a href="https://www.salescareerhub.com/subscribe" target="_blank" class="inline-block bg-[#3E92CC] hover:bg-white text-[#0A2463] text-xl font-bold py-3 px-8 rounded-full shadow-xl transform transition-transform hover:scale-105 duration-300 uppercase tracking-widest border-2 border-transparent cta-button-pulse">
+                    Get the Full Salary Report & Insider Tips
+                </a>
+            </section>
+        `;
+
+        // 2. Function to initialize the charts after content is loaded
+        const initializeSalesCharts = () => {
+            // Chart Data (extracted from original script)
+            const chartData = {
+                labels: [
+                    'SDR',  
+                    'BDR',  
+                    'AE (SMB)', 
+                    ['Account Executive', '(Mid-Market)'], 
+                    ['Account Executive', '(Enterprise)'], 
+                    ['Sales Engineer /', 'Solution Architect'], 
+                    'Sales Manager'
+                ],
+                avgBase: [65000, 60000, 85000, 105000, 150000, 130000, 117500],
+                avgVariable: [22500, 17500, 85000, 105000, 150000, 25000, 47500]
+            };
+            
+            const tooltipCallback = {
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                return Array.isArray(label) ? label.join(' ') : label;
+                            },
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.x !== null) {
+                                    label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(context.parsed.x);
+                                }
+                                return label;
+                            }
+                        }
+                    },
+                    legend: {
+                        position: 'bottom',
+                    }
+                }
+            };
+
+            const formatCurrency = (value) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value);
+
+            // Composition Chart (Bar Chart)
+            const compositionCtx = document.getElementById('compositionChart')?.getContext('2d');
+            if (compositionCtx) {
+                new Chart(compositionCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: chartData.labels,
+                        datasets: [
+                            {
+                                label: 'Average Base Salary',
+                                data: chartData.avgBase,
+                                backgroundColor: '#3E92CC',
+                                borderColor: '#3E92CC',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Average Variable Commission',
+                                data: chartData.avgVariable,
+                                backgroundColor: '#1E56A0',
+                                borderColor: '#1E56A0',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        ...tooltipCallback,
+                        scales: {
+                            x: {
+                                stacked: true,
+                                ticks: {
+                                    callback: (value) => formatCurrency(value)
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'On-Target Earnings (OTE)'
+                                }
+                            },
+                            y: {
+                                stacked: true,
+                                ticks: {
+                                    autoSkip: false
+                                }
+                            }
+                        }
+                    }
+                });
+            } else {
+                console.error("Composition Chart canvas not found.");
+            }
+
+            // Donut Chart (50/50 Split)
+            const donutCtx = document.getElementById('donutChart')?.getContext('2d');
+            if (donutCtx) {
+                new Chart(donutCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: [
+                            'Base Salary (50%)',
+                            'Variable Commission (50%)'
+                        ],
+                        datasets: [{
+                            data: [50, 50],
+                            backgroundColor: [
+                                '#1E56A0',
+                                '#3E92CC'
+                            ],
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    title: function(tooltipItems) {
+                                        return 'Typical AE Split';
+                                    },
+                                    label: function(context) {
+                                        return context.label;
+                                    }
+                                }
+                            },
+                            legend: {
+                                position: 'bottom',
+                            }
+                        }
+                    }
+                });
+            } else {
+                console.error("Donut Chart canvas not found.");
+            }
+        };
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const salesCard = document.getElementById('sales-card');
+            const contentArea = document.getElementById('dynamic-content');
+            
+            // Function to load and display content
+            const loadSalesDashboard = (event) => {
+                event.preventDefault(); // Stop navigation
+                
+                // Show a loading indicator briefly
+                contentArea.innerHTML = '<div class="text-center py-16 text-[#1E56A0] text-xl font-medium">Loading Sales Dashboard...</div>';
+
+                // 1. Inject the raw HTML content
+                contentArea.innerHTML = salesDashboardHTML;
+
+                // 2. Manually initialize the charts after the DOM elements are present
+                // Use a short timeout to ensure the browser has fully rendered the canvas elements
+                setTimeout(() => {
+                    initializeSalesCharts();
+                }, 50);
+
+                // 3. Scroll to the newly loaded content section
+                contentArea.scrollIntoView({ behavior: 'smooth' });
+            };
+
+            // Attach the click handler to the Sales Card
+            salesCard.addEventListener('click', loadSalesDashboard);
+        });
+    </script>
 </body>
 </html>
