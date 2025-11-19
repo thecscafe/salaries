@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remote Sales Salary Snapshot 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutral (bg-orange-50, text-gray-800, accent: text-blue-700) -->
+    <!-- Application Structure Plan: A single-page dashboard. The core is an interactive bar chart showing salary ranges, replacing the static table. Users can toggle between 'Total OTE', 'Base Salary', and 'Variable' using buttons, which dynamically updates the chart. This interaction is more engaging and allows for easier comparison than a static table. Below the chart, the qualitative 'Spotlight' negotiation tips are presented as clear, scannable cards to provide actionable advice. This structure prioritizes data exploration first, followed by contextual advice. -->
+    <!-- Visualization & Content Choices: 1. Report Info: Salary Data Table -> Goal: Compare compensation across roles -> Viz/Method: Interactive Range Bar Chart (Chart.js/Canvas) -> Interaction: Buttons to toggle data view (OTE, Base, Variable) -> Justification: More visual and exploratory than a static table. 2. Report Info: Introduction Text -> Goal: Set context -> Viz/Method: Styled HTML/Tailwind paragraph -> Interaction: None -> Justification: Clear, direct info. 3. Report Info: Spotlight Negotiation Tips -> Goal: Provide scannable advice -> Viz/Method: 3-column grid of cards (HTML/Tailwind) -> Interaction: None -> Justification: Breaks up text, high readability. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FFFAF0; /* bg-orange-50 */
+            color: #1f2937; /* text-gray-800 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 500px;
+                max-height: 600px;
+            }
+        }
+        .nav-button {
+            @apply px-4 py-2 rounded-lg font-medium text-sm md:text-base transition-colors duration-200;
+        }
+        .nav-button.active {
+            @apply bg-blue-700 text-white shadow-lg;
+        }
+        .nav-button.inactive {
+            @apply bg-white text-blue-700 hover:bg-blue-100;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <header class="text-center mb-8 md:mb-12">
+            <h1 class="text-3xl md:text-5xl font-bold text-blue-900 mb-2">Remote Sales Salary Snapshot 2025</h1>
+            <p class="text-lg md:text-xl text-gray-600">Your guide to negotiating your true worth in the remote US market.</p>
+        </header>
+
+        <section id="introduction" class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold text-blue-800 mb-3">Welcome to the Dashboard</h2>
+            <p class="text-gray-700 mb-4">
+                The remote sales landscape is highly competitive, making current salary data essential for negotiation. This interactive dashboard provides up-to-date On-Target Earnings (OTE) ranges for the most common US-based remote sales roles.
+            </p>
+            <p class="text-gray-700 font-medium">
+                Use this tool to benchmark job offers and negotiate with confidence. Select a data point below to update the chart.
+            </p>
+        </section>
+
+        <section id="interactive-chart" class="bg-white p-4 md:p-8 rounded-lg shadow-xl mb-8 md:mb-12">
+            <div class="flex justify-center items-center space-x-2 md:space-x-4 mb-6">
+                <button id="btn-ote" class="nav-button active">Total OTE</button>
+                <button id="btn-base" class="nav-button inactive">Base Salary</button>
+                <button id="btn-variable" class="nav-button inactive">Variable Commission</button>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="salaryChart"></canvas>
+            </div>
+
+            <p class="text-center text-sm text-gray-500 mt-6 italic">
+                *Note: Ranges can fluctuate based on industry (SaaS, Biotech), company size, and geographic location.
+            </p>
+        </section>
+
+        <section id="spotlight">
+            <h2 class="text-3xl font-bold text-center text-blue-900 mb-8">Spotlight: Negotiating the Base vs. Variable</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-blue-700">
+                    <h3 class="text-xl font-semibold text-blue-800 mb-3">1. Base Salary (The Safe Money)</h3>
+                    <p class="text-gray-700">
+                        This is your security blanket. For most Account Executive roles, the <strong>50/50 split</strong> (Base = Variable) is the industry standard. Aim to maintain this parity.
+                    </p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-blue-700">
+                    <h3 class="text-xl font-semibold text-blue-800 mb-3">2. Variable Commission (The Upside)</h3>
+                    <p class="text-gray-700">
+                        Be wary of roles with a very low base salary but an inflated OTE. This suggests high risk and an overly aggressive quota.
+                    </p>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-blue-700">
+                    <h3 class="text-xl font-semibold text-blue-800 mb-3">3. Sales Manager OTE</h3>
+                    <p class="text-gray-700">
+                        The manager OTE often falls slightly above the average AE OTE, but usually features a higher percentage of the total OTE in the Base salary.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center mt-12 py-6 border-t border-gray-200">
+            <p class="text-gray-600">Provided by <strong class="font-semibold text-blue-800">Sales Career Hub</strong> | Hakan Ozturk, Founder</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const salaryData = {
+            labels: [
+                'SDR', 
+                'BDR', 
+                'AE (SMB)', 
+                'AE (Mid-Market)', 
+                'AE (Enterprise)', 
+                'Sales Engineer', 
+                'Sales Manager'
+            ],
+            oteRange: [
+                [70000, 105000], 
+                [60000, 95000], 
+                [150000, 190000], 
+                [180000, 240000], 
+                [260000, 340000], 
+                [120000, 190000], 
+                [130000, 200000]
+            ],
+            baseRange: [
+                [55000, 75000], 
+                [50000, 70000], 
+                [75000, 95000], 
+                [90000, 120000], 
+                [130000, 170000], 
+                [110000, 150000], 
+                [100000, 135000]
+            ],
+            variableRange: [
+                [15000, 30000], 
+                [10000, 25000], 
+                [75000, 95000], 
+                [90000, 120000], 
+                [130000, 170000], 
+                [10000, 40000], 
+                [30000, 65000]
+            ]
+        };
+
+        let salaryChart;
+
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                maximumFractionDigits: 0
+            }).format(value);
+        }
+
+        function createSalaryChart() {
+            const ctx = document.getElementById('salaryChart').getContext('2d');
+            salaryChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: salaryData.labels,
+                    datasets: [{
+                        label: 'Total OTE Range',
+                        data: salaryData.oteRange,
+                        backgroundColor: 'rgba(30, 64, 175, 0.6)',
+                        borderColor: 'rgba(30, 64, 175, 1)',
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        borderSkipped: false,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const item = context.raw;
+                                    if (Array.isArray(item)) {
+                                        return `${context.dataset.label}: ${formatCurrency(item[0])} - ${formatCurrency(item[1])}`;
+                                    }
+                                    return `${context.dataset.label}: ${formatCurrency(item)}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return formatCurrency(value);
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: 'Salary Range (USD)',
+                                font: {
+                                    weight: '600'
+                                }
+                            }
+                        },
+                        x: {
+                             ticks: {
+                                callback: function(value) {
+                                    const label = this.getLabelForValue(value);
+                                    if (label.length > 16) {
+                                        return label.split(' ').map(word => word.length > 8 ? word.substring(0, 8) + '...' : word);
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateChart(dataType) {
+            let newData, newLabel, newBgColor, newBorderColor;
+
+            if (dataType === 'ote') {
+                newData = salaryData.oteRange;
+                newLabel = 'Total OTE Range';
+                newBgColor = 'rgba(30, 64, 175, 0.6)';
+                newBorderColor = 'rgba(30, 64, 175, 1)';
+            } else if (dataType === 'base') {
+                newData = salaryData.baseRange;
+                newLabel = 'Base Salary Range';
+                newBgColor = 'rgba(29, 78, 216, 0.6)';
+                newBorderColor = 'rgba(29, 78, 216, 1)';
+            } else if (dataType === 'variable') {
+                newData = salaryData.variableRange;
+                newLabel = 'Variable Commission Range';
+                newBgColor = 'rgba(37, 99, 235, 0.6)';
+                newBorderColor = 'rgba(37, 99, 235, 1)';
+            }
+
+            salaryChart.data.datasets[0].data = newData;
+            salaryChart.data.datasets[0].label = newLabel;
+            salaryChart.data.datasets[0].backgroundColor = newBgColor;
+            salaryChart.data.datasets[0].borderColor = newBorderColor;
+            salaryChart.update();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createSalaryChart();
+
+            const buttons = [
+                { id: 'btn-ote', type: 'ote' },
+                { id: 'btn-base', type: 'base' },
+                { id: 'btn-variable', type: 'variable' }
+            ];
+
+            buttons.forEach(btnInfo => {
+                const buttonEl = document.getElementById(btnInfo.id);
+                buttonEl.addEventListener('click', () => {
+                    updateChart(btnInfo.type);
+                    
+                    buttons.forEach(b => {
+                        const el = document.getElementById(b.id);
+                        el.classList.remove('active', 'inactive');
+                        el.classList.add(b.id === btnInfo.id ? 'active' : 'inactive');
+                    });
+                });
+            });
+        });
+
+    </script>
+</body>
+</html>
