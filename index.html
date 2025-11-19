@@ -22,24 +22,32 @@
     <meta name="twitter:site" content="@TheCSCafe"> 
     <meta name="twitter:creator" content="@HakanOzturk">
     
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js and Inter font are now loaded on the main page -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
+        /* Base styles and custom fonts/colors */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #F0F5F9;
+            background-color: #F0F5F9; /* Light blue/gray background */
             color: #1A202C;
+            min-height: 100vh;
         }
         /* Style for the actual link (Sales) */
         .card-link {
             cursor: pointer;
             transition: all 0.3s;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        .card-link:hover {
+            box-shadow: 0 10px 15px -3px rgba(30, 86, 160, 0.2), 0 4px 6px -2px rgba(30, 86, 160, 0.1);
         }
         .card-link:hover .card-icon {
-            transform: scale(1.1);
+            transform: scale(1.1) rotateY(10deg);
         }
         /* Style for the inactive placeholders */
         .card-placeholder {
@@ -60,7 +68,6 @@
             margin-left: auto;
             margin-right: auto;
             height: 450px;
-            max-height: 500px;
         }
         .chart-container-donut {
             position: relative;
@@ -69,12 +76,10 @@
             margin-left: auto;
             margin-right: auto;
             height: 300px;
-            max-height: 300px;
         }
         @media (min-width: 768px) {
             .chart-container-bar {
                 height: 500px;
-                max-height: 600px;
             }
         }
         /* Custom animation for the CTA button */
@@ -96,7 +101,8 @@
             <!-- H1 is the primary focus for the entire repository -->
             <h1 class="text-4xl md:text-5xl font-extrabold text-[#0A2463] mb-3">The Remote Career Hub: Interactive Salary Benchmarks</h1>
             <p class="text-lg md:text-xl text-gray-700 max-w-4xl mx-auto">
-                Discover your true market worth across multiple remote career paths. <strong>The Sales Dashboard is currently live!</strong> Click below to view the latest On-Target Earnings (OTE), base salary, and compensation breakdowns.
+                Discover your true market worth across multiple remote career paths. 
+                <strong class="text-[#1E56A0] font-extrabold">The Sales Dashboard is currently live!</strong> Click below to view the latest On-Target Earnings (OTE), base salary, and compensation breakdowns.
             </p>
         </header>
 
@@ -104,7 +110,6 @@
         <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             
             <!-- Sales Dashboard Card (Now calling a JS function) -->
-            <!-- The href is now '#' and onclick loads the content dynamically -->
             <a href="#" id="sales-card" data-dashboard-id="sales" class="card-link bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border-b-4 border-[#1E56A0] flex items-start space-x-4">
                 <span class="card-icon text-4xl text-[#1E56A0] transform transition-transform duration-300">📈</span>
                 <div>
@@ -147,7 +152,11 @@
         <!-- Dynamic Content Area -->
         <main id="dynamic-content" class="bg-white rounded-xl shadow-2xl min-h-[300px] transition-all duration-500 p-6 md:p-10">
             <div class="text-center py-16 text-gray-500 text-xl font-medium">
-                Click on the **Remote Sales Salary Snapshot** card above to view the dashboard instantly!
+                Click on the 
+                <strong class="text-[#1E56A0] font-extrabold tracking-tight">
+                    Remote Sales Salary Snapshot
+                </strong> 
+                card above to view the dashboard instantly!
             </div>
         </main>
         
@@ -164,9 +173,9 @@
     </div>
 
     <script>
-        // --- Sales Dashboard Content and Logic (Extracted from original HTML) ---
+        // --- Sales Dashboard Content and Logic ---
 
-        // 1. Raw HTML content of the dashboard (excluding redundant header/footer)
+        // 1. Raw HTML content of the dashboard 
         const salesDashboardHTML = `
             <div class="text-center mb-10 md:mb-16">
                 <!-- H2 for the dynamic content block -->
@@ -260,7 +269,7 @@
 
         // 2. Function to initialize the charts after content is loaded
         const initializeSalesCharts = () => {
-            // Chart Data (extracted from original script)
+            // Chart Data 
             const chartData = {
                 labels: [
                     'SDR',  
@@ -275,6 +284,7 @@
                 avgVariable: [22500, 17500, 85000, 105000, 150000, 25000, 47500]
             };
             
+            // Reusable Tooltip configuration for better currency display
             const tooltipCallback = {
                 plugins: {
                     tooltip: {
@@ -304,7 +314,7 @@
 
             const formatCurrency = (value) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value);
 
-            // Composition Chart (Bar Chart)
+            // Composition Chart (Stacked Horizontal Bar Chart)
             const compositionCtx = document.getElementById('compositionChart')?.getContext('2d');
             if (compositionCtx) {
                 new Chart(compositionCtx, {
@@ -315,14 +325,14 @@
                             {
                                 label: 'Average Base Salary',
                                 data: chartData.avgBase,
-                                backgroundColor: '#3E92CC',
+                                backgroundColor: '#3E92CC', // Lighter Blue
                                 borderColor: '#3E92CC',
                                 borderWidth: 1
                             },
                             {
                                 label: 'Average Variable Commission',
                                 data: chartData.avgVariable,
-                                backgroundColor: '#1E56A0',
+                                backgroundColor: '#1E56A0', // Darker Blue
                                 borderColor: '#1E56A0',
                                 borderWidth: 1
                             }
@@ -418,6 +428,7 @@
 
                 // 2. Manually initialize the charts after the DOM elements are present
                 // Use a short timeout to ensure the browser has fully rendered the canvas elements
+                // Note: Charts MUST be initialized *after* the DOM elements are inserted.
                 setTimeout(() => {
                     initializeSalesCharts();
                 }, 50);
