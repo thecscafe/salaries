@@ -12,7 +12,7 @@
     <title>Remote Career Salary Benchmarks | Sales, Marketing, CS, Product OTE Data</title>
     <meta name="description" content="Access the latest interactive salary dashboards for top remote careers: Sales, Marketing, Customer Success, and Product. Get accurate OTE, base salary, and compensation data to negotiate your next role.">
     <meta name="keywords" content="remote salary benchmarks, OTE, sales salary, marketing salary, customer success salary, product salary, remote compensation data, career hub, remote jobs">
-    <meta name="author" content="Sales Career Hub">
+    <meta name="author" content="The Customer Success Café">
 
     <!-- Open Graph Tags -->
     <meta property="og:title" content="The Remote Career Hub: Interactive Salary Benchmarks (Sales, Marketing, CS, Product)">
@@ -40,7 +40,7 @@
             color: #1A202C;
             min-height: 100vh;
         }
-        /* Style for the actual link (Sales) */
+        /* Style for the actual link (Sales & CS) */
         .card-link {
             cursor: pointer;
             transition: all 0.3s;
@@ -52,6 +52,10 @@
         }
         .card-link:hover .card-icon {
             transform: scale(1.1) rotateY(10deg);
+        }
+        /* Purple variant for CS */
+        .card-link-purple:hover {
+            box-shadow: 0 10px 15px -3px rgba(124, 58, 237, 0.2), 0 4px 6px -2px rgba(124, 58, 237, 0.1);
         }
         /* Style for the inactive placeholders */
         .card-placeholder {
@@ -86,7 +90,7 @@
                 height: 500px;
             }
         }
-        /* Custom animation for the CTA button */
+        /* Custom animation for the CTA button - Sales version */
         @keyframes pulse-shadow {
             0% { box-shadow: 0 0 0 0 rgba(62, 146, 204, 0.7); }
             70% { box-shadow: 0 0 0 10px rgba(62, 146, 204, 0); }
@@ -94,6 +98,15 @@
         }
         .cta-button-pulse {
             animation: pulse-shadow 1.5s infinite;
+        }
+        /* Custom animation for the CTA button - CS version (purple) */
+        @keyframes pulse-shadow-purple {
+            0% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(139, 92, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+        }
+        .cta-button-pulse-purple {
+            animation: pulse-shadow-purple 1.5s infinite;
         }
     </style>
 </head>
@@ -106,14 +119,14 @@
             <h1 class="text-4xl md:text-5xl font-extrabold text-[#0A2463] mb-3">The Remote Career Hub: Interactive Salary Benchmarks</h1>
             <p class="text-lg md:text-xl text-gray-700 max-w-4xl mx-auto">
                 Discover your true market worth across multiple remote career paths. 
-                <strong class="text-[#1E56A0] font-extrabold">The Sales Dashboard is currently live!</strong> Click below to view the latest On-Target Earnings (OTE), base salary, and compensation breakdowns.
+                <strong class="text-[#1E56A0] font-extrabold">Sales & Customer Success Dashboards are now live!</strong> Click below to view the latest On-Target Earnings (OTE), base salary, and compensation breakdowns.
             </p>
         </header>
 
         <!-- DASHBOARD NAVIGATION GRID -->
         <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             
-            <!-- Sales Dashboard Card (Now calling a JS function) -->
+            <!-- Sales Dashboard Card (Active) -->
             <a href="#" id="sales-card" data-dashboard-id="sales" class="card-link bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border-b-4 border-[#1E56A0] flex items-start space-x-4">
                 <span class="card-icon text-4xl text-[#1E56A0] transform transition-transform duration-300">📈</span>
                 <div>
@@ -122,7 +135,7 @@
                 </div>
             </a>
             
-            <!-- Marketing Dashboard Card (Placeholder - No change) -->
+            <!-- Marketing Dashboard Card (Placeholder) -->
             <div class="card-placeholder bg-white p-8 rounded-xl shadow-lg border-b-4 border-gray-400 flex items-start space-x-4">
                 <span class="card-icon text-4xl text-gray-500">📣</span>
                 <div>
@@ -132,17 +145,16 @@
                 </div>
             </div>
             
-            <!-- Customer Success Dashboard Card (Placeholder - No change) -->
-            <div class="card-placeholder bg-white p-8 rounded-xl shadow-lg border-b-4 border-gray-400 flex items-start space-x-4">
-                <span class="card-icon text-4xl text-gray-500">🤝</span>
+            <!-- Customer Success Dashboard Card (Now Active!) -->
+            <a href="#" id="cs-card" data-dashboard-id="cs" class="card-link card-link-purple bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border-b-4 border-purple-700 flex items-start space-x-4">
+                <span class="card-icon text-4xl text-purple-700 transform transition-transform duration-300">🤝</span>
                 <div>
-                    <h2 class="text-2xl font-bold text-gray-600 mb-2">Customer Success Salary and Bonus Report</h2>
-                    <span class="inline-block bg-gray-200 text-gray-800 text-xs font-semibold px-2 py-1 rounded-full uppercase tracking-wider mt-1">Coming Soon</span>
-                    <p class="text-gray-600 mt-2">CSM, Director, and VP-level compensation data. Focus on renewal bonuses, churn targets, and retention metrics.</p>
+                    <h2 class="text-2xl font-bold text-purple-700 mb-2">Customer Success Salary and Bonus Report (2025) - LIVE!</h2>
+                    <p class="text-gray-600">CSM, Senior CSM, Manager, and Director compensation data. Focus on the 75/25 split, NRR bonuses, and retention metrics.</p>
                 </div>
-            </div>
+            </a>
             
-            <!-- Product Management Dashboard Card (Placeholder - No change) -->
+            <!-- Product Management Dashboard Card (Placeholder) -->
             <div class="card-placeholder bg-white p-8 rounded-xl shadow-lg border-b-4 border-gray-400 flex items-start space-x-4">
                 <span class="card-icon text-4xl text-gray-500">🧠</span>
                 <div>
@@ -160,6 +172,10 @@
                 <strong class="text-[#1E56A0] font-extrabold tracking-tight">
                     Remote Sales Salary Snapshot
                 </strong> 
+                or 
+                <strong class="text-purple-700 font-extrabold tracking-tight">
+                    Customer Success Salary Report
+                </strong> 
                 card above to view the dashboard instantly!
             </div>
         </main>
@@ -167,7 +183,7 @@
         <footer class="text-center mt-16 py-6 border-t border-gray-300">
             <p class="text-gray-600">
                 A project by 
-                <a href="https://www.salescareerhub.com" target="_blank" class="font-semibold text-[#0A2463] hover:text-[#1E56A0] transition-colors duration-200">
+                <a href="https://www.thecscafe.com" target="_blank" class="font-semibold text-[#0A2463] hover:text-[#1E56A0] transition-colors duration-200">
                     Hakan Ozturk
                 </a> 
                 - Founder, The Customer Success Café Weekly Newsletter
@@ -179,10 +195,9 @@
     <script>
         // --- Sales Dashboard Content and Logic ---
 
-        // 1. Raw HTML content of the dashboard 
+        // 1. Raw HTML content of the Sales dashboard 
         const salesDashboardHTML = `
             <div class="text-center mb-10 md:mb-16">
-                <!-- H2 for the dynamic content block -->
                 <h2 class="text-4xl md:text-5xl font-bold text-[#1E56A0] mb-3">2025 Remote Sales Salary Snapshot: OTE Breakdown & Negotiation Guide</h2>
                 <p class="text-lg md:text-xl text-gray-600">Discover your true market worth with our data-driven guide to remote sales compensation.</p>
             </div>
@@ -264,16 +279,14 @@
                 <p class="text-xl mb-6 max-w-4xl mx-auto">
                     Don't leave money on the table. Get the complete 50-page deep-dive report, real-time salary updates, and proven negotiation scripts delivered weekly.
                 </p>
-                <!-- Prominent call to action button with a subtle pulse animation for improved CTR -->
-                <a href="https://www.salescareerhub.com/subscribe" target="_blank" class="inline-block bg-[#3E92CC] hover:bg-white text-[#0A2463] text-xl font-bold py-3 px-8 rounded-full shadow-xl transform transition-transform hover:scale-105 duration-300 uppercase tracking-widest border-2 border-transparent cta-button-pulse">
+                <a href="https://www.thecscafe.com/subscribe" target="_blank" class="inline-block bg-[#3E92CC] hover:bg-white text-[#0A2463] text-xl font-bold py-3 px-8 rounded-full shadow-xl transform transition-transform hover:scale-105 duration-300 uppercase tracking-widest border-2 border-transparent cta-button-pulse">
                     Get the Full Salary Report & Insider Tips
                 </a>
             </section>
         `;
 
-        // 2. Function to initialize the charts after content is loaded
+        // 2. Function to initialize the Sales charts after content is loaded
         const initializeSalesCharts = () => {
-            // Chart Data 
             const chartData = {
                 labels: [
                     'SDR',  
@@ -288,7 +301,6 @@
                 avgVariable: [22500, 17500, 85000, 105000, 150000, 25000, 47500]
             };
             
-            // Reusable Tooltip configuration for better currency display
             const tooltipCallback = {
                 plugins: {
                     tooltip: {
@@ -318,7 +330,6 @@
 
             const formatCurrency = (value) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value);
 
-            // Composition Chart (Stacked Horizontal Bar Chart)
             const compositionCtx = document.getElementById('compositionChart')?.getContext('2d');
             if (compositionCtx) {
                 new Chart(compositionCtx, {
@@ -329,14 +340,14 @@
                             {
                                 label: 'Average Base Salary',
                                 data: chartData.avgBase,
-                                backgroundColor: '#3E92CC', // Lighter Blue
+                                backgroundColor: '#3E92CC',
                                 borderColor: '#3E92CC',
                                 borderWidth: 1
                             },
                             {
                                 label: 'Average Variable Commission',
                                 data: chartData.avgVariable,
-                                backgroundColor: '#1E56A0', // Darker Blue
+                                backgroundColor: '#1E56A0',
                                 borderColor: '#1E56A0',
                                 borderWidth: 1
                             }
@@ -367,11 +378,8 @@
                         }
                     }
                 });
-            } else {
-                console.error("Composition Chart canvas not found.");
             }
 
-            // Donut Chart (50/50 Split)
             const donutCtx = document.getElementById('donutChart')?.getContext('2d');
             if (donutCtx) {
                 new Chart(donutCtx, {
@@ -410,41 +418,274 @@
                         }
                     }
                 });
-            } else {
-                console.error("Donut Chart canvas not found.");
+            }
+        };
+
+        // --- Customer Success Dashboard Content and Logic ---
+
+        // 1. Raw HTML content of the CS dashboard 
+        const csDashboardHTML = `
+            <div class="text-center mb-10 md:mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-purple-700 mb-3">2025 Remote Customer Success Salary Snapshot: OTE Breakdown & Negotiation Guide</h2>
+                <p class="text-lg md:text-xl text-gray-600">Discover your true market worth with our data-driven guide to remote Customer Success compensation.</p>
+            </div>
+
+            <!-- Section 1: Key Metrics -->
+            <section class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-10 md:mb-16">
+                <div class="bg-white p-6 rounded-xl shadow-xl border-l-4 border-purple-700">
+                    <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">Highest Potential On-Target Earnings (OTE)</p>
+                    <p class="text-5xl md:text-6xl font-bold text-purple-900 my-2">$240,000</p>
+                    <p class="text-lg text-gray-700">Role: <span class="font-semibold">VP of Customer Success</span></p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-xl border-l-4 border-purple-500">
+                    <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">Average Remote CS OTE (Across Key Roles)</p>
+                    <p class="text-5xl md:text-6xl font-bold text-purple-900 my-2">$138,333</p>
+                    <p class="text-lg text-gray-700">Average OTE across CSM, Senior CSM, CS Manager, Director, and VP positions.</p>
+                </div>
+            </section>
+
+            <!-- Section 2: OTE Composition Chart -->
+            <section class="bg-white rounded-xl shadow-2xl p-6 md:p-10 mb-10 md:mb-16">
+                <h3 class="text-3xl font-bold text-purple-900 mb-3 text-center">In-Depth CS OTE Composition: Base Salary vs. Variable Compensation</h3>
+                <p class="text-center text-gray-600 max-w-3xl mx-auto mb-8">
+                    This chart visually breaks down the average <strong>On-Target Earnings (OTE)</strong> for each Customer Success role, clearly differentiating the stable <strong>Base Salary</strong> from the performance-based <strong>Variable Compensation</strong>. Use this data to benchmark your current compensation.
+                </p>
+                <div class="chart-container-bar">
+                    <canvas id="csCompositionChart"></canvas>
+                </div>
+            </section>
+
+            <!-- Section 3: Key Insight - The 75/25 Split -->
+            <section class="bg-white rounded-xl shadow-2xl p-6 md:p-10 mb-10 md:mb-16">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-3xl font-bold text-purple-900 mb-4">The Standard: Understanding the Remote CSM 75/25 Salary Split</h3>
+                        <p class="text-gray-700 text-lg mb-4">
+                            Unlike sales roles, Customer Success Manager positions typically follow a <strong class="text-purple-700">75/25 or 80/20 OTE split</strong>. This reflects the <strong class="font-bold">relationship-driven nature</strong> of CS work versus transactional sales. Your <strong class="font-bold">Base Salary</strong> comprises the majority, with a smaller at-quota <strong class="font-bold">Variable Bonus</strong>.
+                        </p>
+                        <p class="text-gray-700 text-lg">
+                            This model prioritizes <strong class="font-bold">stability and retention focus</strong> while still rewarding key metrics like NRR, churn prevention, and expansion revenue. Knowing this split is crucial for realistic compensation expectations.
+                        </p>
+                    </div>
+                    <div class="chart-container-donut">
+                        <canvas id="csDonutChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: Negotiation Playbook -->
+            <section class="mb-10 md:mb-16">
+                <h3 class="text-3xl font-bold text-purple-900 mb-8 text-center">Exclusive Remote CS Salary Negotiation Playbook</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 duration-300">
+                        <h4 class="text-2xl font-semibold text-purple-700 mb-3">1. Base Salary Focus: Your Foundation</h4>
+                        <p class="text-gray-700">
+                            In CS, your <strong class="font-bold">Base Salary</strong> is typically 75-80% of OTE. This reflects the long-term, relationship-focused nature of the work. Negotiate base aggressively since variable comp is smaller than in sales roles.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 duration-300">
+                        <h4 class="text-2xl font-semibold text-purple-700 mb-3">2. Variable Pay: Metrics Matter</h4>
+                        <p class="text-gray-700">
+                            CS <strong class="font-bold">Variable Compensation</strong> (typically 20-25% of OTE) should tie to controllable metrics: NRR, GRR, customer health scores, and expansion bookings. Avoid vanity metrics you cannot directly influence.
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 duration-300">
+                        <h4 class="text-2xl font-semibold text-purple-700 mb-3">3. Portfolio Size & Complexity</h4>
+                        <p class="text-gray-700">
+                            Your <strong class="font-bold">book of business</strong> directly impacts earning potential. Enterprise CSMs managing fewer high-value accounts earn more than those with hundreds of SMB customers. Always clarify ARR responsibility.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Newsletter CTA -->
+            <section class="bg-purple-700 text-white p-8 md:p-12 rounded-xl shadow-2xl text-center mb-10 md:mb-16">
+                <h3 class="text-3xl md:text-4xl font-bold mb-3">Maximize Your Next Offer: Join The Customer Success Café!</h3>
+                <p class="text-xl mb-6 max-w-4xl mx-auto">
+                    Don't leave money on the table. Get exclusive CS salary benchmarks, career frameworks, and proven negotiation scripts delivered weekly to 4,300+ CS professionals.
+                </p>
+                <a href="https://www.thecscafe.com/subscribe" target="_blank" class="inline-block bg-purple-500 hover:bg-white text-purple-900 text-xl font-bold py-3 px-8 rounded-full shadow-xl transform transition-transform hover:scale-105 duration-300 uppercase tracking-widest border-2 border-transparent cta-button-pulse-purple">
+                    Get the Full CS Salary Report & Insider Tips
+                </a>
+            </section>
+        `;
+
+        // 2. Function to initialize the CS charts after content is loaded
+        const initializeCSCharts = () => {
+            const chartData = {
+                labels: [
+                    'CSM (Entry)', 
+                    'CSM (Mid-level)', 
+                    'Senior CSM', 
+                    'CS Manager', 
+                    'Director of CS',
+                    ['VP of Customer', 'Success']
+                ],
+                avgBase: [62000, 85000, 107000, 113000, 167000, 190000],
+                avgVariable: [13000, 25000, 28000, 32000, 48000, 50000]
+            };
+            
+            const tooltipCallback = {
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                return Array.isArray(label) ? label.join(' ') : label;
+                            },
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.x !== null) {
+                                    label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(context.parsed.x);
+                                }
+                                return label;
+                            }
+                        }
+                    },
+                    legend: {
+                        position: 'bottom',
+                    }
+                }
+            };
+
+            const formatCurrency = (value) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value);
+
+            const compositionCtx = document.getElementById('csCompositionChart')?.getContext('2d');
+            if (compositionCtx) {
+                new Chart(compositionCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: chartData.labels,
+                        datasets: [
+                            {
+                                label: 'Average Base Salary',
+                                data: chartData.avgBase,
+                                backgroundColor: '#8B5CF6',
+                                borderColor: '#8B5CF6',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Average Variable Compensation',
+                                data: chartData.avgVariable,
+                                backgroundColor: '#A78BFA',
+                                borderColor: '#A78BFA',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        ...tooltipCallback,
+                        scales: {
+                            x: {
+                                stacked: true,
+                                ticks: {
+                                    callback: (value) => formatCurrency(value)
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'On-Target Earnings (OTE)'
+                                }
+                            },
+                            y: {
+                                stacked: true,
+                                ticks: {
+                                    autoSkip: false
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            const donutCtx = document.getElementById('csDonutChart')?.getContext('2d');
+            if (donutCtx) {
+                new Chart(donutCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: [
+                            'Base Salary (75%)',
+                            'Variable Bonus (25%)'
+                        ],
+                        datasets: [{
+                            data: [75, 25],
+                            backgroundColor: [
+                                '#7C3AED',
+                                '#A78BFA'
+                            ],
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    title: function(tooltipItems) {
+                                        return 'Typical CSM Split';
+                                    },
+                                    label: function(context) {
+                                        return context.label;
+                                    }
+                                }
+                            },
+                            legend: {
+                                position: 'bottom',
+                            }
+                        }
+                    }
+                });
             }
         };
 
 
         document.addEventListener('DOMContentLoaded', () => {
             const salesCard = document.getElementById('sales-card');
+            const csCard = document.getElementById('cs-card');
             const contentArea = document.getElementById('dynamic-content');
             
-            // Function to load and display content
+            // Function to load and display Sales content
             const loadSalesDashboard = (event) => {
-                event.preventDefault(); // Stop navigation
+                event.preventDefault();
                 
-                // Show a loading indicator briefly
                 contentArea.innerHTML = '<div class="text-center py-16 text-[#1E56A0] text-xl font-medium">Loading Sales Dashboard...</div>';
-
-                // 1. Inject the raw HTML content
                 contentArea.innerHTML = salesDashboardHTML;
 
-                // 2. Manually initialize the charts after the DOM elements are present
-                // Use a short timeout to ensure the browser has fully rendered the canvas elements
-                // Note: Charts MUST be initialized *after* the DOM elements are inserted.
                 setTimeout(() => {
                     initializeSalesCharts();
                 }, 50);
 
-                // 3. Scroll to the newly loaded content section
                 contentArea.scrollIntoView({ behavior: 'smooth' });
             };
 
-            // Attach the click handler to the Sales Card
+            // Function to load and display CS content
+            const loadCSDashboard = (event) => {
+                event.preventDefault();
+                
+                contentArea.innerHTML = '<div class="text-center py-16 text-purple-700 text-xl font-medium">Loading Customer Success Dashboard...</div>';
+                contentArea.innerHTML = csDashboardHTML;
+
+                setTimeout(() => {
+                    initializeCSCharts();
+                }, 50);
+
+                contentArea.scrollIntoView({ behavior: 'smooth' });
+            };
+
+            // Attach the click handlers
             salesCard.addEventListener('click', loadSalesDashboard);
+            csCard.addEventListener('click', loadCSDashboard);
         });
     </script>
 </body>
 </html>
-
