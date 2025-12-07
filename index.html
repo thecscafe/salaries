@@ -40,7 +40,7 @@
             color: #1A202C;
             min-height: 100vh;
         }
-        /* Style for the actual link (Sales & CS) */
+        /* Style for the active links (Sales, CS, Marketing) */
         .card-link {
             cursor: pointer;
             transition: all 0.3s;
@@ -56,6 +56,10 @@
         /* Purple variant for CS */
         .card-link-purple:hover {
             box-shadow: 0 10px 15px -3px rgba(124, 58, 237, 0.2), 0 4px 6px -2px rgba(124, 58, 237, 0.1);
+        }
+        /* Orange variant for Marketing */
+        .card-link-orange:hover {
+            box-shadow: 0 10px 15px -3px rgba(249, 115, 22, 0.2), 0 4px 6px -2px rgba(249, 115, 22, 0.1);
         }
         /* Style for the inactive placeholders */
         .card-placeholder {
@@ -108,6 +112,15 @@
         .cta-button-pulse-purple {
             animation: pulse-shadow-purple 1.5s infinite;
         }
+        /* Custom animation for the CTA button - Marketing version (orange) */
+        @keyframes pulse-shadow-orange {
+            0% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(249, 115, 22, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
+        }
+        .cta-button-pulse-orange {
+            animation: pulse-shadow-orange 1.5s infinite;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -119,7 +132,7 @@
             <h1 class="text-4xl md:text-5xl font-extrabold text-[#0A2463] mb-3">The Remote Career Hub: Interactive Salary Benchmarks</h1>
             <p class="text-lg md:text-xl text-gray-700 max-w-4xl mx-auto">
                 Discover your true market worth across multiple remote career paths. 
-                <strong class="text-[#1E56A0] font-extrabold">Sales & Customer Success Dashboards are now live!</strong> Click below to view the latest On-Target Earnings (OTE), base salary, and compensation breakdowns.
+                <strong class="text-[#1E56A0] font-extrabold">Sales, Marketing & Customer Success Dashboards are now live!</strong> Click below to view the latest On-Target Earnings (OTE), base salary, and compensation breakdowns.
             </p>
         </header>
 
@@ -135,17 +148,16 @@
                 </div>
             </a>
             
-            <!-- Marketing Dashboard Card (Placeholder) -->
-            <div class="card-placeholder bg-white p-8 rounded-xl shadow-lg border-b-4 border-gray-400 flex items-start space-x-4">
-                <span class="card-icon text-4xl text-gray-500">📣</span>
+            <!-- Marketing Dashboard Card (Now Active!) -->
+            <a href="#" id="marketing-card" data-dashboard-id="marketing" class="card-link card-link-orange bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border-b-4 border-orange-600 flex items-start space-x-4">
+                <span class="card-icon text-4xl text-orange-600 transform transition-transform duration-300">📣</span>
                 <div>
-                    <h2 class="text-2xl font-bold text-gray-600 mb-2">Marketing OTE and Compensation Benchmarks</h2>
-                    <span class="inline-block bg-gray-200 text-gray-800 text-xs font-semibold px-2 py-1 rounded-full uppercase tracking-wider mt-1">Coming Soon</span>
-                    <p class="text-gray-600 mt-2">Data for PMM, Content, and Demand Gen roles. Analyze base pay vs. bonus structures and regional variances.</p>
+                    <h2 class="text-2xl font-bold text-orange-600 mb-2">Marketing OTE and Compensation Benchmarks (2025) - LIVE!</h2>
+                    <p class="text-gray-600">Data for PMM, Content, and Demand Gen roles. Analyze base pay vs. bonus structures with the 85/15 split.</p>
                 </div>
-            </div>
+            </a>
             
-            <!-- Customer Success Dashboard Card (Now Active!) -->
+            <!-- Customer Success Dashboard Card (Active) -->
             <a href="#" id="cs-card" data-dashboard-id="cs" class="card-link card-link-purple bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border-b-4 border-purple-700 flex items-start space-x-4">
                 <span class="card-icon text-4xl text-purple-700 transform transition-transform duration-300">🤝</span>
                 <div>
@@ -168,15 +180,7 @@
         <!-- Dynamic Content Area -->
         <main id="dynamic-content" class="bg-white rounded-xl shadow-2xl min-h-[300px] transition-all duration-500 p-6 md:p-10">
             <div class="text-center py-16 text-gray-500 text-xl font-medium">
-                Click on the 
-                <strong class="text-[#1E56A0] font-extrabold tracking-tight">
-                    Remote Sales Salary Snapshot
-                </strong> 
-                or 
-                <strong class="text-purple-700 font-extrabold tracking-tight">
-                    Customer Success Salary Report
-                </strong> 
-                card above to view the dashboard instantly!
+                Click on any active dashboard card above to view detailed salary data instantly!
             </div>
         </main>
         
@@ -194,8 +198,6 @@
 
     <script>
         // --- Sales Dashboard Content and Logic ---
-
-        // 1. Raw HTML content of the Sales dashboard 
         const salesDashboardHTML = `
             <div class="text-center mb-10 md:mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold text-[#1E56A0] mb-3">2025 Remote Sales Salary Snapshot: OTE Breakdown & Negotiation Guide</h2>
@@ -279,13 +281,12 @@
                 <p class="text-xl mb-6 max-w-4xl mx-auto">
                     Don't leave money on the table. Get the complete 50-page deep-dive report, real-time salary updates, and proven negotiation scripts delivered weekly.
                 </p>
-                <a href="https://www.salescareerhub.com/subscribe" target="_blank" class="inline-block bg-[#3E92CC] hover:bg-white text-[#0A2463] text-xl font-bold py-3 px-8 rounded-full shadow-xl transform transition-transform hover:scale-105 duration-300 uppercase tracking-widest border-2 border-transparent cta-button-pulse">
+                <a href="https://www.thecscafe.com/subscribe" target="_blank" class="inline-block bg-[#3E92CC] hover:bg-white text-[#0A2463] text-xl font-bold py-3 px-8 rounded-full shadow-xl transform transition-transform hover:scale-105 duration-300 uppercase tracking-widest border-2 border-transparent cta-button-pulse">
                     Get the Full Salary Report & Insider Tips
                 </a>
             </section>
         `;
 
-        // 2. Function to initialize the Sales charts after content is loaded
         const initializeSalesCharts = () => {
             const chartData = {
                 labels: [
@@ -422,8 +423,6 @@
         };
 
         // --- Customer Success Dashboard Content and Logic ---
-
-        // 1. Raw HTML content of the CS dashboard 
         const csDashboardHTML = `
             <div class="text-center mb-10 md:mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold text-purple-700 mb-3">2025 Remote Customer Success Salary Snapshot: OTE Breakdown & Negotiation Guide</h2>
@@ -513,7 +512,6 @@
             </section>
         `;
 
-        // 2. Function to initialize the CS charts after content is loaded
         const initializeCSCharts = () => {
             const chartData = {
                 labels: [
@@ -648,45 +646,276 @@
             }
         };
 
+        // --- Marketing Dashboard Content and Logic ---
+        const marketingDashboardHTML = `
+            <div class="text-center mb-10 md:mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-orange-600 mb-3">2025 Remote Marketing Salary Snapshot: OTE Breakdown & Negotiation Guide</h2>
+                <p class="text-lg md:text-xl text-gray-600">Discover your true market worth with our data-driven guide to remote marketing compensation.</p>
+            </div>
+
+            <!-- Section 1: Key Metrics -->
+            <section class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-10 md:mb-16">
+                <div class="bg-white p-6 rounded-xl shadow-xl border-l-4 border-orange-600">
+                    <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">Highest Potential On-Target Earnings (OTE)</p>
+                    <p class="text-5xl md:text-6xl font-bold text-orange-900 my-2">$275,000</p>
+                    <p class="text-lg text-gray-700">Role: <span class="font-semibold">VP of Marketing</span></p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-xl border-l-4 border-amber-500">
+                    <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">Average Remote Marketing OTE (Across Key Roles)</p>
+                    <p class="text-5xl md:text-6xl font-bold text-orange-900 my-2">$137,285</p>
+                    <p class="text-lg text-gray-700">Average OTE across Coordinator, Manager, PMM, Demand Gen, and Director positions.</p>
+                </div>
+            </section>
+
+            <!-- Section 2: OTE Composition Chart -->
+            <section class="bg-white rounded-xl shadow-2xl p-6 md:p-10 mb-10 md:mb-16">
+                <h3 class="text-3xl font-bold text-orange-900 mb-3 text-center">In-Depth Marketing OTE Composition: Base Salary vs. Performance Bonus</h3>
+                <p class="text-center text-gray-600 max-w-3xl mx-auto mb-8">
+                    This chart visually breaks down the average <strong>On-Target Earnings (OTE)</strong> for each marketing role, clearly differentiating the stable <strong>Base Salary</strong> from the performance-based <strong>Bonus</strong>. Use this data to benchmark your current compensation.
+                </p>
+                <div class="chart-container-bar">
+                    <canvas id="marketingCompositionChart"></canvas>
+                </div>
+            </section>
+
+            <!-- Section 3: Key Insight - The 85/15 Split -->
+            <section class="bg-white rounded-xl shadow-2xl p-6 md:p-10 mb-10 md:mb-16">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-3xl font-bold text-orange-900 mb-4">The Standard: Understanding the Remote Marketing 85/15 Salary Split</h3>
+                        <p class="text-gray-700 text-lg mb-4">
+                            For most marketing roles, the <strong class="text-orange-600">85/15 OTE split</strong> is the established industry standard for <strong class="font-bold">remote marketing compensation</strong>. This means your <strong class="font-bold">Base Salary</strong> comprises the majority at 85%, with a 15% performance-based <strong class="font-bold">Bonus</strong> tied to pipeline generation, MQLs, and campaign performance.
+                        </p>
+                        <p class="text-gray-700 text-lg">
+                            This model ensures <strong class="font-bold">financial stability</strong> while rewarding measurable marketing impact. Some roles like Demand Gen may have a 80/20 split due to direct pipeline attribution.
+                        </p>
+                    </div>
+                    <div class="chart-container-donut">
+                        <canvas id="marketingDonutChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: Negotiation Playbook -->
+            <section class="mb-10 md:mb-16">
+                <h3 class="text-3xl font-bold text-orange-900 mb-8 text-center">Exclusive Remote Marketing Salary Negotiation Playbook</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 duration-300">
+                        <h4 class="text-2xl font-semibold text-orange-600 mb-3">1. Base Salary Dominance</h4>
+                        <p class="text-gray-700">
+                            Marketing roles prioritize <strong class="font-bold">Base Salary</strong> (85%+ of OTE) because impact is measured across longer cycles. Unlike sales, your bonus is tied to pipeline influence, not closed deals. Negotiate base aggressively.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 duration-300">
+                        <h4 class="text-2xl font-semibold text-orange-600 mb-3">2. Bonus Metrics Clarity</h4>
+                        <p class="text-gray-700">
+                            Ensure your <strong class="font-bold">Performance Bonus</strong> (10-20% of OTE) is tied to metrics you control: MQLs, pipeline contribution, campaign ROI, content performance. Avoid bonuses tied solely to company revenue or sales quotas.
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-lg transform transition-transform hover:scale-105 duration-300">
+                        <h4 class="text-2xl font-semibold text-orange-600 mb-3">3. Specialized Role Premium</h4>
+                        <p class="text-gray-700">
+                            <strong class="font-bold">Product Marketing</strong> and <strong class="font-bold">Demand Gen</strong> roles command 15-25% higher compensation than general marketing managers due to direct revenue impact and specialized skills. Know your market value.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Newsletter CTA -->
+            <section class="bg-orange-600 text-white p-8 md:p-12 rounded-xl shadow-2xl text-center mb-10 md:mb-16">
+                <h3 class="text-3xl md:text-4xl font-bold mb-3">Maximize Your Next Offer: Join The Customer Success Café!</h3>
+                <p class="text-xl mb-6 max-w-4xl mx-auto">
+                    Don't leave money on the table. Get exclusive marketing salary benchmarks, career frameworks, and proven negotiation scripts delivered weekly to 4,300+ professionals.
+                </p>
+                <a href="https://www.thecscafe.com/subscribe" target="_blank" class="inline-block bg-amber-500 hover:bg-white text-orange-900 text-xl font-bold py-3 px-8 rounded-full shadow-xl transform transition-transform hover:scale-105 duration-300 uppercase tracking-widest border-2 border-transparent cta-button-pulse-orange">
+                    Get the Full Salary Report & Insider Tips
+                </a>
+            </section>
+        `;
+
+        const initializeMarketingCharts = () => {
+            const chartData = {
+                labels: [
+                    'Marketing Coordinator', 
+                    ['Content Marketing', 'Manager'], 
+                    ['Demand Generation', 'Manager'], 
+                    ['Product Marketing', 'Manager'], 
+                    'Marketing Manager',
+                    'Director of Marketing',
+                    'VP of Marketing'
+                ],
+                avgBase: [54000, 90000, 96000, 126000, 117000, 167000, 239000],
+                avgVariable: [6000, 13000, 24000, 19000, 18000, 28000, 36000]
+            };
+            
+            const tooltipCallback = {
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                return Array.isArray(label) ? label.join(' ') : label;
+                            },
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.x !== null) {
+                                    label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(context.parsed.x);
+                                }
+                                return label;
+                            }
+                        }
+                    },
+                    legend: {
+                        position: 'bottom',
+                    }
+                }
+            };
+
+            const formatCurrency = (value) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value);
+
+            const compositionCtx = document.getElementById('marketingCompositionChart')?.getContext('2d');
+            if (compositionCtx) {
+                new Chart(compositionCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: chartData.labels,
+                        datasets: [
+                            {
+                                label: 'Average Base Salary',
+                                data: chartData.avgBase,
+                                backgroundColor: '#F97316',
+                                borderColor: '#F97316',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Average Performance Bonus',
+                                data: chartData.avgVariable,
+                                backgroundColor: '#FB923C',
+                                borderColor: '#FB923C',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        ...tooltipCallback,
+                        scales: {
+                            x: {
+                                stacked: true,
+                                ticks: {
+                                    callback: (value) => formatCurrency(value)
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'On-Target Earnings (OTE)'
+                                }
+                            },
+                            y: {
+                                stacked: true,
+                                ticks: {
+                                    autoSkip: false
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            const donutCtx = document.getElementById('marketingDonutChart')?.getContext('2d');
+            if (donutCtx) {
+                new Chart(donutCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: [
+                            'Base Salary (85%)',
+                            'Performance Bonus (15%)'
+                        ],
+                        datasets: [{
+                            data: [85, 15],
+                            backgroundColor: [
+                                '#EA580C',
+                                '#FB923C'
+                            ],
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    title: function(tooltipItems) {
+                                        return 'Typical Marketing Split';
+                                    },
+                                    label: function(context) {
+                                        return context.label;
+                                    }
+                                }
+                            },
+                            legend: {
+                                position: 'bottom',
+                            }
+                        }
+                    }
+                });
+            }
+        };
+
 
         document.addEventListener('DOMContentLoaded', () => {
             const salesCard = document.getElementById('sales-card');
             const csCard = document.getElementById('cs-card');
+            const marketingCard = document.getElementById('marketing-card');
             const contentArea = document.getElementById('dynamic-content');
             
             // Function to load and display Sales content
             const loadSalesDashboard = (event) => {
                 event.preventDefault();
-                
                 contentArea.innerHTML = '<div class="text-center py-16 text-[#1E56A0] text-xl font-medium">Loading Sales Dashboard...</div>';
                 contentArea.innerHTML = salesDashboardHTML;
-
                 setTimeout(() => {
                     initializeSalesCharts();
                 }, 50);
-
                 contentArea.scrollIntoView({ behavior: 'smooth' });
             };
 
             // Function to load and display CS content
             const loadCSDashboard = (event) => {
                 event.preventDefault();
-                
                 contentArea.innerHTML = '<div class="text-center py-16 text-purple-700 text-xl font-medium">Loading Customer Success Dashboard...</div>';
                 contentArea.innerHTML = csDashboardHTML;
-
                 setTimeout(() => {
                     initializeCSCharts();
                 }, 50);
+                contentArea.scrollIntoView({ behavior: 'smooth' });
+            };
 
+            // Function to load and display Marketing content
+            const loadMarketingDashboard = (event) => {
+                event.preventDefault();
+                contentArea.innerHTML = '<div class="text-center py-16 text-orange-600 text-xl font-medium">Loading Marketing Dashboard...</div>';
+                contentArea.innerHTML = marketingDashboardHTML;
+                setTimeout(() => {
+                    initializeMarketingCharts();
+                }, 50);
                 contentArea.scrollIntoView({ behavior: 'smooth' });
             };
 
             // Attach the click handlers
             salesCard.addEventListener('click', loadSalesDashboard);
             csCard.addEventListener('click', loadCSDashboard);
+            marketingCard.addEventListener('click', loadMarketingDashboard);
         });
     </script>
 </body>
 </html>
-
