@@ -1,4 +1,0 @@
-Sitemap: https://thecscafe.github.io/salaries/sitemap.xml
-
-User-agent: *
-Disallow:
