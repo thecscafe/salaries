@@ -3,7 +3,7 @@
   <!-- The main hub page -->
   <url>
     <loc>https://thecscafe.github.io/salaries/</loc>
-    <lastmod>2025-11-19</lastmod>
+    <lastmod>2025-12-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -11,7 +11,31 @@
   <!-- The interactive sales dashboard -->
   <url>
     <loc>https://thecscafe.github.io/salaries/Interactive-Remote-Sales-Salary-Dashboard.html</loc>
-    <lastmod>2025-11-19</lastmod>
+    <lastmod>2025-12-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- The interactive customer success dashboard -->
+  <url>
+    <loc>https://thecscafe.github.io/salaries/Interactive-Remote-Customer-Success-Salary-Dashboard.html</loc>
+    <lastmod>2025-12-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- The interactive marketing dashboard -->
+  <url>
+    <loc>https://thecscafe.github.io/salaries/Interactive-Remote-Marketing-Salary-Dashboard.html</loc>
+    <lastmod>2025-12-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- The interactive product management dashboard -->
+  <url>
+    <loc>https://thecscafe.github.io/salaries/Interactive-Remote-Product-Management-Salary-Dashboard.html</loc>
+    <lastmod>2025-12-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
