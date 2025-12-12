@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- The main hub page -->
+  <!-- The main hub page (2026 updated) -->
   <url>
     <loc>https://thecscafe.github.io/salaries/</loc>
-    <lastmod>2025-12-07</lastmod>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- The interactive sales dashboard -->
+  <!-- Sales Dashboard (2026) -->
   <url>
     <loc>https://thecscafe.github.io/salaries/Interactive-Remote-Sales-Salary-Dashboard.html</loc>
-    <lastmod>2025-12-07</lastmod>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- The interactive customer success dashboard -->
+  <!-- Customer Success Dashboard (2026) -->
   <url>
     <loc>https://thecscafe.github.io/salaries/Interactive-Remote-Customer-Success-Salary-Dashboard.html</loc>
-    <lastmod>2025-12-07</lastmod>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- The interactive marketing dashboard -->
+  <!-- Marketing Dashboard (2026) -->
   <url>
     <loc>https://thecscafe.github.io/salaries/Interactive-Remote-Marketing-Salary-Dashboard.html</loc>
-    <lastmod>2025-12-07</lastmod>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- The interactive product management dashboard -->
+  <!-- Product Management Dashboard (2026) -->
   <url>
     <loc>https://thecscafe.github.io/salaries/Interactive-Remote-Product-Management-Salary-Dashboard.html</loc>
-    <lastmod>2025-12-07</lastmod>
+    <lastmod>2025-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
